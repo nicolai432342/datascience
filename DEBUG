@@ -1,0 +1,340 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "accelerator": "GPU",
+    "colab": {
+      "name": "SECOND STEP ------------ (1)(1)(1) (1)(1)(1).ipynb",
+      "provenance": [],
+      "collapsed_sections": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython3",
+      "version": "3.7.9"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/nicolai432342/datascience/blob/master/DEBUG\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "x_zerJ7PAcmo",
+        "outputId": "bd5e6c11-921f-429e-e163-bbfab35f88da"
+      },
+      "source": [
+        "!nvidia-smi"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Failed to initialize NVML: Driver/library version mismatch\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "sYNKxw4lReMI",
+        "outputId": "0fbd5421-93eb-4c59-876f-f2eccf644808"
+      },
+      "source": [
+        "!nvidia-smi -i 0 -pm 1"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "/bin/sh: 1: Syntax error: \")\" unexpected\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "Rxj16SxFSeYG",
+        "outputId": "09480a81-8a0f-4730-e3a2-a9b68927aae4"
+      },
+      "source": [
+        "!sudo add-apt-repository ppa:ethereum/ethereum -y\r\n",
+        "!sudo cat /etc/apt/sources.list\r\n",
+        "!sudo apt update\r\n",
+        "!sudo apt install ethereum\r\n",
+        "!wget https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz\r\n",
+        "%ls\r\n",
+        "!tar -zxvf ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz\r\n",
+        "%cd bin/"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Traceback (most recent call last):\n",
+            "  File \"/usr/bin/add-apt-repository\", line 12, in <module>\n",
+            "    from softwareproperties.SoftwareProperties import SoftwareProperties, shortcut_handler\n",
+            "  File \"/usr/lib/python3/dist-packages/softwareproperties/SoftwareProperties.py\", line 28, in <module>\n",
+            "    import apt_pkg\n",
+            "ModuleNotFoundError: No module named 'apt_pkg'\n",
+            "# See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to\n",
+            "# newer versions of the distribution.\n",
+            "deb http://archive.ubuntu.com/ubuntu/ bionic main restricted\n",
+            "# deb-src http://archive.ubuntu.com/ubuntu/ bionic main restricted\n",
+            "\n",
+            "## Major bug fix updates produced after the final release of the\n",
+            "## distribution.\n",
+            "deb http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted\n",
+            "# deb-src http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted\n",
+            "\n",
+            "## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu\n",
+            "## team. Also, please note that software in universe WILL NOT receive any\n",
+            "## review or updates from the Ubuntu security team.\n",
+            "deb http://archive.ubuntu.com/ubuntu/ bionic universe\n",
+            "# deb-src http://archive.ubuntu.com/ubuntu/ bionic universe\n",
+            "deb http://archive.ubuntu.com/ubuntu/ bionic-updates universe\n",
+            "# deb-src http://archive.ubuntu.com/ubuntu/ bionic-updates universe\n",
+            "\n",
+            "## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu\n",
+            "## team, and may not be under a free licence. Please satisfy yourself as to\n",
+            "## your rights to use the software. Also, please note that software in\n",
+            "## multiverse WILL NOT receive any review or updates from the Ubuntu\n",
+            "## security team.\n",
+            "deb http://archive.ubuntu.com/ubuntu/ bionic multiverse\n",
+            "# deb-src http://archive.ubuntu.com/ubuntu/ bionic multiverse\n",
+            "deb http://archive.ubuntu.com/ubuntu/ bionic-updates multiverse\n",
+            "# deb-src http://archive.ubuntu.com/ubuntu/ bionic-updates multiverse\n",
+            "\n",
+            "## N.B. software from this repository may not have been tested as\n",
+            "## extensively as that contained in the main release, although it includes\n",
+            "## newer versions of some applications which may provide useful features.\n",
+            "## Also, please note that software in backports WILL NOT receive any review\n",
+            "## or updates from the Ubuntu security team.\n",
+            "deb http://archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse\n",
+            "# deb-src http://archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse\n",
+            "\n",
+            "## Uncomment the following two lines to add software from Canonical's\n",
+            "## 'partner' repository.\n",
+            "## This software is not part of Ubuntu, but is offered by Canonical and the\n",
+            "## respective vendors as a service to Ubuntu users.\n",
+            "# deb http://archive.canonical.com/ubuntu bionic partner\n",
+            "# deb-src http://archive.canonical.com/ubuntu bionic partner\n",
+            "\n",
+            "deb http://security.ubuntu.com/ubuntu/ bionic-security main restricted\n",
+            "# deb-src http://security.ubuntu.com/ubuntu/ bionic-security main restricted\n",
+            "deb http://security.ubuntu.com/ubuntu/ bionic-security universe\n",
+            "# deb-src http://security.ubuntu.com/ubuntu/ bionic-security universe\n",
+            "deb http://security.ubuntu.com/ubuntu/ bionic-security multiverse\n",
+            "# deb-src http://security.ubuntu.com/ubuntu/ bionic-security multiverse\n",
+            "Hit:1 https://deb.nodesource.com/node_12.x bionic InRelease\n",
+            "Ign:2 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  InRelease\n",
+            "Ign:3 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  InRelease\n",
+            "Hit:4 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64  Release\n",
+            "Hit:5 https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64  Release\n",
+            "Hit:7 http://ppa.launchpad.net/deadsnakes/ppa/ubuntu bionic InRelease          \u001b[0m\u001b[33m\n",
+            "Hit:9 http://archive.ubuntu.com/ubuntu bionic InRelease                  \u001b[0m  \u001b[0m\u001b[33m\n",
+            "Hit:10 http://security.ubuntu.com/ubuntu bionic-security InRelease      \u001b[0m3m\n",
+            "Hit:11 http://archive.ubuntu.com/ubuntu bionic-updates InRelease        \n",
+            "Hit:12 http://archive.ubuntu.com/ubuntu bionic-backports InRelease\n",
+            "Reading package lists... Done \u001b[0m                  \u001b[33m\u001b[33m\n",
+            "Building dependency tree       \n",
+            "Reading state information... Done\n",
+            "174 packages can be upgraded. Run 'apt list --upgradable' to see them.\n",
+            "Reading package lists... Done\n",
+            "Building dependency tree       \n",
+            "Reading state information... Done\n",
+            "E: Unable to locate package ethereum\n",
+            "--2021-03-12 13:59:13--  https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz\n",
+            "Resolving github.com (github.com)... 192.30.255.113\n",
+            "Connecting to github.com (github.com)|192.30.255.113|:443... connected.\n",
+            "HTTP request sent, awaiting response... 302 Found\n",
+            "Location: https://github-releases.githubusercontent.com/89067146/e102c980-ad61-11e9-97dd-d70ed23bcfbc?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20210312%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210312T135914Z&X-Amz-Expires=300&X-Amz-Signature=d7341c3bc1e4789da7619d2efc6f33df8c584abe43006b538c58406b8661e836&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=89067146&response-content-disposition=attachment%3B%20filename%3Dethminer-0.18.0-cuda-8-linux-x86_64.tar.gz&response-content-type=application%2Foctet-stream [following]\n",
+            "--2021-03-12 13:59:14--  https://github-releases.githubusercontent.com/89067146/e102c980-ad61-11e9-97dd-d70ed23bcfbc?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20210312%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210312T135914Z&X-Amz-Expires=300&X-Amz-Signature=d7341c3bc1e4789da7619d2efc6f33df8c584abe43006b538c58406b8661e836&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=89067146&response-content-disposition=attachment%3B%20filename%3Dethminer-0.18.0-cuda-8-linux-x86_64.tar.gz&response-content-type=application%2Foctet-stream\n",
+            "Resolving github-releases.githubusercontent.com (github-releases.githubusercontent.com)... 185.199.108.154, 185.199.109.154, 185.199.110.154, ...\n",
+            "Connecting to github-releases.githubusercontent.com (github-releases.githubusercontent.com)|185.199.108.154|:443... connected.\n",
+            "HTTP request sent, awaiting response... 200 OK\n",
+            "Length: 2818425 (2.7M) [application/octet-stream]\n",
+            "Saving to: ‘ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz’\n",
+            "\n",
+            "ethminer-0.18.0-cud 100%[===================>]   2.69M  6.59MB/s    in 0.4s    \n",
+            "\n",
+            "2021-03-12 13:59:14 (6.59 MB/s) - ‘ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz’ saved [2818425/2818425]\n",
+            "\n",
+            "\u001b[0m\u001b[01;32methminer\u001b[0m*  ethminer-0.18.0-cuda-8-linux-x86_64.tar.gz  \u001b[01;34mkernels\u001b[0m/\n",
+            "bin/\n",
+            "bin/kernels/\n",
+            "bin/kernels/ethash_baffin_lws256_exit.bin\n",
+            "bin/kernels/ethash_tonga_lws256_exit.bin\n",
+            "bin/kernels/ethash_gfx901_lws256_exit.bin\n",
+            "bin/kernels/ethash_ellesmere_lws128.bin\n",
+            "bin/kernels/ethash_gfx901_lws64.bin\n",
+            "bin/kernels/ethash_ellesmere_lws256_exit.bin\n",
+            "bin/kernels/ethash_gfx901_lws128.bin\n",
+            "bin/kernels/ethash_ellesmere_lws64.bin\n",
+            "bin/kernels/ethash_baffin_lws128.bin\n",
+            "bin/kernels/ethash_ellesmere_lws128_exit.bin\n",
+            "bin/kernels/ethash_baffin_lws256.bin\n",
+            "bin/kernels/ethash_gfx901_lws128_exit.bin\n",
+            "bin/kernels/ethash_gfx900_lws64.bin\n",
+            "bin/kernels/ethash_ellesmere_lws256.bin\n",
+            "bin/kernels/ethash_gfx901_lws64_exit.bin\n",
+            "bin/kernels/ethash_baffin_lws64.bin\n",
+            "bin/kernels/ethash_tonga_lws128.bin\n",
+            "bin/kernels/ethash_gfx900_lws128.bin\n",
+            "bin/kernels/ethash_gfx900_lws256.bin\n",
+            "bin/kernels/ethash_tonga_lws128_exit.bin\n",
+            "bin/kernels/ethash_gfx900_lws128_exit.bin\n",
+            "bin/kernels/ethash_gfx900_lws64_exit.bin\n",
+            "bin/kernels/ethash_tonga_lws64_exit.bin\n",
+            "bin/kernels/ethash_baffin_lws128_exit.bin\n",
+            "bin/kernels/ethash_ellesmere_lws64_exit.bin\n",
+            "bin/kernels/ethash_tonga_lws64.bin\n",
+            "bin/kernels/ethash_gfx900_lws256_exit.bin\n",
+            "bin/kernels/ethash_gfx901_lws256.bin\n",
+            "bin/kernels/ethash_tonga_lws256.bin\n",
+            "bin/kernels/ethash_baffin_lws64_exit.bin\n",
+            "bin/ethminer\n",
+            "/spell/Untitled Folder 2/bin/bin\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "r_-icLFcoMtY"
+      },
+      "source": [
+        "### Pool Hesabı \r\n",
+        "Bu kısımda Binance Pool Hesabı kullanıyoruz. Üye olmak için tıklayınız.\r\n",
+        "\r\n",
+        "- [Binance Pool Üye Ol](\"https://accounts.binance.com/tr/register?ref=KH8NMPM4\") \r\n",
+        "- [Binance Pool Giriş](\"https://accounts.binance.com/tr/register?ref=KH8NMPM4\")"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "CNu6akfEwQOQ",
+        "outputId": "30327472-bce2-4e46-dd7e-c6f8edcd3ce5"
+      },
+      "source": [
+        "!./ethminer -G -P stratum2+tcp://3AS176ptEnz9LEq7ZBJaqunF2a8wzd4rMn.workername@daggerhashimoto.usa-west.nicehash.com:3353 -G"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "\n",
+            "\n",
+            "ethminer 0.18.0\n",
+            "Build: linux/release/gnu\n",
+            "\n",
+            "\u001b[94m i \u001b[35m13:59:16 \u001b[94methminer \u001b[0mConfigured pool daggerhashimoto.usa-west.nicehash.com:3353\n",
+            "\u001b[94m i \u001b[35m13:59:16 \u001b[94methminer \u001b[0mSelected pool daggerhashimoto.usa-west.nicehash.com:3353\n",
+            "\u001b[94m i \u001b[35m13:59:16 \u001b[94methminer \u001b[0mStratum mode : EthereumStratum/1.0.0 (NiceHash)\n",
+            "\u001b[94m i \u001b[35m13:59:16 \u001b[94methminer \u001b[0mEstablished connection to daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[94m i \u001b[35m13:59:16 \u001b[94methminer \u001b[0mSpinning up miners...\n",
+            "\u001b[33mcl \u001b[35m13:59:16 \u001b[94mcl-0     \u001b[0mUsing PciId : 00:03.6 Tesla V100-SXM2-16GB (Compute 7.0) Memory : 15.78 GB\n",
+            "\u001b[94m i \u001b[35m13:59:16 \u001b[94methminer \u001b[0mAuthorized worker 3AS176ptEnz9LEq7ZBJaqunF2a8wzd4rMn.workername\n",
+            "\u001b[94m i \u001b[35m13:59:17 \u001b[94methminer \u001b[0mEpoch : \u001b[97m400\u001b[0m Difficulty : \u001b[97m875.99 Mh\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:17 \u001b[94methminer \u001b[0mJob: \u001b[97mce51f6cf…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[33mcl \u001b[35m13:59:20 \u001b[94mcl-0     \u001b[0mGenerating DAG + Light : 4.19 GB\n",
+            "\u001b[33mcl \u001b[35m13:59:20 \u001b[94mcl-0     \u001b[0mOpenCL kernel\n",
+            "\u001b[33mcl \u001b[35m13:59:20 \u001b[94mcl-0     \u001b[0mCreating light cache buffer, size: 66.00 MB\n",
+            "\u001b[33mcl \u001b[35m13:59:20 \u001b[94mcl-0     \u001b[0mCreating DAG buffer, size: 4.12 GB, free: 11.59 GB\n",
+            "\u001b[33mcl \u001b[35m13:59:20 \u001b[94mcl-0     \u001b[0mLoading kernels\n",
+            "\u001b[33mcl \u001b[35m13:59:20 \u001b[94mcl-0     \u001b[0mWriting light cache buffer\n",
+            "\u001b[33mcl \u001b[35m13:59:20 \u001b[94mcl-0     \u001b[0mCreating buffer for header.\n",
+            "\u001b[33mcl \u001b[35m13:59:20 \u001b[94mcl-0     \u001b[0mCreating mining buffer\n",
+            "\u001b[94m i \u001b[35m13:59:21 \u001b[94methminer \u001b[0mJob: \u001b[97m952b9f89…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[32m m \u001b[35m13:59:21 \u001b[94methminer \u001b[0m\u001b[32m0:00\u001b[0m\u001b[1;97m A0\u001b[0m \u001b[1;36m0.00 h\u001b[0m - cl0 \u001b[36m0.00\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:23 \u001b[94methminer \u001b[0mExtranonce set to \u001b[97mcd2ea9\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:23 \u001b[94methminer \u001b[0mJob: \u001b[97m952b9f89…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[33mcl \u001b[35m13:59:24 \u001b[94mcl-0     \u001b[0m4.12 GB of DAG data generated in 4,808 ms.\n",
+            "\u001b[94m i \u001b[35m13:59:26 \u001b[94methminer \u001b[0mJob: \u001b[97m16bc6c40…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[32m m \u001b[35m13:59:26 \u001b[94methminer \u001b[0m\u001b[32m0:00\u001b[0m\u001b[1;97m A0\u001b[0m \u001b[1;36m0.00 h\u001b[0m - cl0 \u001b[36m0.00\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:31 \u001b[94methminer \u001b[0mJob: \u001b[97m2695c7ff…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[32m m \u001b[35m13:59:31 \u001b[94methminer \u001b[0m\u001b[32m0:00\u001b[0m\u001b[1;97m A0\u001b[0m \u001b[1;36m90.35 Mh\u001b[0m - cl0 \u001b[36m90.35\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:32 \u001b[94methminer \u001b[0mJob: \u001b[97m35a97501…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[33mcl \u001b[35m13:59:33 \u001b[94mcl-0     \u001b[0m\u001b[97mJob: 35a97501… Sol: 0xcd2ea9000390b5cd\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:33 \u001b[94methminer \u001b[0m\u001b[92m**Accepted\u001b[0m  14 ms. daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[32m m \u001b[35m13:59:36 \u001b[94methminer \u001b[0m\u001b[32m0:00\u001b[0m\u001b[1;97m A1\u001b[0m \u001b[1;36m90.36 Mh\u001b[0m - cl0 \u001b[36m90.36\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:37 \u001b[94methminer \u001b[0mJob: \u001b[97me6445af8…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[32m m \u001b[35m13:59:41 \u001b[94methminer \u001b[0m\u001b[32m0:00\u001b[0m\u001b[1;97m A1\u001b[0m \u001b[1;36m90.36 Mh\u001b[0m - cl0 \u001b[36m90.36\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:42 \u001b[94methminer \u001b[0mJob: \u001b[97m9305b78d…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[33mcl \u001b[35m13:59:44 \u001b[94mcl-0     \u001b[0m\u001b[97mJob: 9305b78d… Sol: 0xcd2ea9000a988d3d\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:44 \u001b[94methminer \u001b[0m\u001b[92m**Accepted\u001b[0m  14 ms. daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[32m m \u001b[35m13:59:46 \u001b[94methminer \u001b[0m\u001b[32m0:00\u001b[0m\u001b[1;97m A2\u001b[0m \u001b[1;36m90.36 Mh\u001b[0m - cl0 \u001b[36m90.36\u001b[0m\n",
+            "\u001b[33mcl \u001b[35m13:59:47 \u001b[94mcl-0     \u001b[0m\u001b[97mJob: 9305b78d… Sol: 0xcd2ea9001942eb07\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:47 \u001b[94methminer \u001b[0m\u001b[92m**Accepted\u001b[0m  15 ms. daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[94m i \u001b[35m13:59:47 \u001b[94methminer \u001b[0mJob: \u001b[97m961c6a52…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[32m m \u001b[35m13:59:51 \u001b[94methminer \u001b[0m\u001b[32m0:00\u001b[0m\u001b[1;97m A3\u001b[0m \u001b[1;36m90.36 Mh\u001b[0m - cl0 \u001b[36m90.36\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:52 \u001b[94methminer \u001b[0mJob: \u001b[97mf39d6ff7…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[33mcl \u001b[35m13:59:53 \u001b[94mcl-0     \u001b[0m\u001b[97mJob: f39d6ff7… Sol: 0xcd2ea90007361dba\u001b[0m\n",
+            "\u001b[94m i \u001b[35m13:59:53 \u001b[94methminer \u001b[0m\u001b[92m**Accepted\u001b[0m  14 ms. daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[94m i \u001b[35m13:59:55 \u001b[94methminer \u001b[0mJob: \u001b[97mf2440535…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n",
+            "\u001b[32m m \u001b[35m13:59:56 \u001b[94methminer \u001b[0m\u001b[32m0:00\u001b[0m\u001b[1;97m A4\u001b[0m \u001b[1;36m90.36 Mh\u001b[0m - cl0 \u001b[36m90.36\u001b[0m\n",
+            "\u001b[94m i \u001b[35m14:00:00 \u001b[94methminer \u001b[0mJob: \u001b[97ma60d0a3f…\u001b[0m daggerhashimoto.usa-west.nicehash.com [172.65.247.93:3353]\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "nYV-j-BXwQOT"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "yTZrfUOywQOU"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
